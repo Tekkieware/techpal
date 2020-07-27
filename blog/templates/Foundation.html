@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {% block title %}
+    {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'techpal/css/bootstrap.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'techpal/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'techpal/css/main.css' %}" />
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'techpal/css/font-awesome.css' %}" />
+    <script src="{% static 'techpal/js/jquery-3.4.1.min.js' %}"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    {% block othersytles %}
+    {% endblock %}
+</head>
+
+<body class="bg-light">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-8 offset-md-2 container-mine" style="background: #fff">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+                            <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">                                    
+                                            <a id="myuser" style="margin-right: -200px" class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <span class="fa fa-user myuser"></span>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                    {% if user.is_authenticated %}
+                                                    <a class="dropdown-item" href="{% url 'account:password_change' %}">Change Password</a>
+                                                    <a class="dropdown-item" href="{% url 'account:logout' %}">Sign Out<i class="fa fa-sign-out pull-right"></i></a>
+                                                    {% else %}
+                                                    <a class="dropdown-item" href="{% url 'account:register' %}'">Sign Up<i class="fa fa-users pull-right"></i></a>
+                                                    <a class="dropdown-item" href="{% url 'account:login' %}">Sign In <i class="fa fa-sign-in pull-right"></i></a>
+                                                    <a class="dropdown-item" href="{% url 'account:reset_password' %}">Reset Password</a>
+                                                    {% endif %}
+        
+                                            </div>
+                                    
+                                <a class="navbar-brand" href="#">
+                                    <h3><a href="{% url 'home' %}" class="c-dark pull-left">Tech<b style="color:  rgb(105, 10, 124);">PAL</b></a></h3>
+                                </a>
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                            </button>
+                                <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item active">
+                                            <a class="nav-link" href="{% url 'blog:articles' %}">Articles</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'blog:how_to' %}">How To</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="{% url 'blog:news' %}">Tech News</a>
+                                        </li>
+                                        <li class="nav-item dropdown pull-right d-lg-none">
+                                            <a id="myuser2" class="nav-link dropdown-toggle pull-right" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <span class="fa fa-user myuser"></span>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">                            
+                                                {% if user.is_authenticated %}
+                                                <a class="dropdown-item" href="{% url 'account:password_change' %}">Change Password</a>
+                                                <a class="dropdown-item" href="{% url 'account:logout' %}">Sign Out<i class="fa fa-sign-out pull-right"></i></a>
+                                                {% else %}
+                                                <a class="dropdown-item" href="{% url 'account:register' %}'">Sign Up<i class="fa fa-users pull-right"></i></a>
+                                                <a class="dropdown-item" href="{% url 'account:login' %}">Sign In <i class="fa fa-sign-in pull-right"></i></a>
+                                                <a class="dropdown-item" href="{% url 'account:reset_password' %}">Reset Password</a>
+                                                {% endif %}
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="nav-item dropdown pull-right d-none d-lg-block" style="margin-right: 80px">
+                                    <a class="nav-link dropdown-toggle pull-right" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false">
+                                        <span class="fa fa-user myuser"></span>
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                            {% if user.is_authenticated %}
+                                            <a class="dropdown-item" href="{% url 'account:password_change' %}">Change Password</a>
+                                            <a class="dropdown-item" href="{% url 'account:logout' %}">Sign Out<i class="fa fa-sign-out pull-right"></i></a>
+                                            {% else %}
+                                            <a class="dropdown-item" href="{% url 'account:register' %}'">Sign Up<i class="fa fa-users pull-right"></i></a>
+                                            <a class="dropdown-item" href="{% url 'account:login' %}">Sign In <i class="fa fa-sign-in pull-right"></i></a>
+                                            <a class="dropdown-item" href="{% url 'account:reset_password' %}">Reset Password</a>
+                                            {% endif %}
+
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid" style="margin-top: 55px">
+                {% block content %}
+                {% endblock %}
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="container-fluid footer bg-light">
+        <p>&copy;Copyright Isaiah Ozadhe. 2020</p>
+    </div>
+
+    <script src="{% static 'techpal/js/main.js' %}"></script>
+    <script src="{% static 'techpal/js/bootstrap.min.js' %}"></script>
+    {% block otherscripts %}
+    {% endblock %}
+</body>
+
+</html>

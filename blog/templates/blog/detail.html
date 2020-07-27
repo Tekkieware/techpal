@@ -1,0 +1,77 @@
+{% extends 'Foundation.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}<title>{{ post.title }} | TechPAL</title>{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <br>
+        <br> 
+        <p class="h6">{{ post.title }}</p>
+        <p class="info-tag text-muted">{{ post.created|timesince }} ago.</p>
+        <span class="fa fa-comments-o c-primary">&nbsp;&nbsp;<b class="num text-muted">{{ post.comment_set.count }}</b></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <span class="fa fa-eye c-primary">&nbsp;&nbsp;<b class="num text-muted">{{ hitcount.total_hits }}</b></span>
+        <p>{{ post.description }}</p>
+        <hr>
+        <p> {{ post.content|safe }}</p>
+    </div>
+
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <p class="text-muted info-tag">Created: <br> {{post.created}}</p>
+        </div>
+        <div class="col-6">
+            <p class="text-muted info-tag">Updated: <br> {{post.updated}}</p>
+        </div>
+    </div>
+</div>
+      <br>  
+<form method="POST" action="{% url 'blog:comment' post.id post.slug %}">
+    {% csrf_token %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <textarea class="form-control" name="coment" rows="1" placeholder="Add Comment"></textarea>
+            </div>
+            <div class="col-12 col-md-6 text-center">
+                <button class="btn btn-primary" type="submit">Comment</button>
+            </div>
+        </div>
+    </div>
+</form>
+<br>
+{% for comment in post.comment_set.all %}   
+<div class="row">
+    <div class="col-12 col-md-8 offset-md-2">
+        <p class="h6">{{comment.user|lower }}:</p>
+        <p class="info-tag">{{ comment.text }}</p>
+        <p class="info-tag">{{ comment.created }}</p>
+    </div>
+</div>
+{% endfor %}
+<br>
+
+<div class="row">
+    <div class="col-12 col-md-8 offset-md-2">
+        <h5>Author:</h5>
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="{% static 'techpal/img/author.jpg' %}" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Isaiah Ozadhe</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content
+                             lead-in to additional content. This content
+                            is a little bit longer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

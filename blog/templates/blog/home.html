@@ -1,0 +1,153 @@
+{% extends 'Foundation.html' %}
+{% block title %}<title>TechPAL | Home</title>{% endblock%}
+{% load static %}
+{% load hitcount_tags %}
+{% block content %}
+<div class="row">
+    <div class="card text-dark text-center imgback">
+        <img src="{% static 'techpal/img/1.jpg' %}" class="card-img" alt="...">
+        <div class="card-img-overlay topwelcome">
+            <p class="h2 welcome">Welcome!!!!, <small>Have a question?</small></p>
+            <form method="POST" action="{% url 'blog:question' user %}">
+                {% csrf_token %}
+                <textarea name="question" class="form-control hometext" placeholder="Ask TechPAL"></textarea>
+                <br>
+                <button class="mytransb text-muted" type="submit">SUBMIT!!!!!!</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% if howtos %}
+<div class="row">
+    <div class="col-12 container-mine">
+        <span class="tag">Latest on How-To</span>
+        <hr class="closeline"> 
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card-body">
+            {% for post in howtos %}
+            <a href="{% url 'blog:post' post.id post.slug %}" class="c-dark">
+            <h6 class="card-title">{{ post.title }}</h6>
+            <p class="card-text">{{ post.description }}</p>
+            </a>
+            <br>
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+                        <span><b class="info-tag text-muted">{{ post.created|date }}</b></span>
+                    </div>
+                    <div class="col-4">
+                        <span class="fa fa-eye c-primary"><b class="num">&nbsp;&nbsp;<b class="num text-muted">{% get_hit_count for post %}</b></b></span>
+                    </div>
+                    <div class="col-4">
+                        <span class="fa fa-comments-o c-primary">&nbsp;&nbsp;<b class="num text-muted"> {{post.comment_set.count }}</b></span>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+            <a href="{% url 'blog:how_to' %}" class="mylink pull-right"><i>More.....</i></a>
+        </div>
+    
+    </div>
+</div>
+{% endif %}
+{% if news %}
+<div class="row">
+    <div class="col-12 container-mine">
+        <br>
+        <span class="tag">Latest Tech-News</span>
+        <hr class="closeline">
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card-body">
+            {% for post in news %}
+            <a href="{% url 'blog:post' post.id post.slug %}" class="c-dark">
+            <h6 class="card-title">{{ post.title }}</h6>
+            <p class="card-text">{{ post.description }}</p>
+            </a>
+            <br>
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+                        <span><b class="info-tag text-muted">{{ post.created|date }}</b></span>
+                    </div>
+                    <div class="col-4">
+                        <span class="fa fa-eye c-primary">&nbsp;&nbsp;<b class="num text-muted">{% get_hit_count for post %}</b></span>
+                    </div>
+                    <div class="col-4">
+                        <span class="fa fa-comments-o c-primary">&nbsp;&nbsp;<b class="num text-muted">{{ post.comment_set.count }}</b></span>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+            <a href="{% url 'blog:news' %}" class="mylink pull-right"><i>More.....</i></a>
+        </div>
+    
+    </div>
+</div>
+{% endif %}
+{% if articles %}
+<div class="row">
+    <div class="col-12 container-mine">
+        <br>
+        <span class="tag">Latest Articles</span>
+        <hr class="closeline">
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card-body">
+            {% for post in articles %}
+            <a href="{% url 'blog:post' post.id post.slug %}" class="c-dark">
+            <h6 class="card-title">{{ post.title }}</h6>
+            <p class="card-text">{{ post.description }}</p>
+            </a>
+            <br>
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+                        <span><b class="info-tag text-muted">{{ post.created|date }}</b></span>
+                    </div>
+                    <div class="col-4">
+                        <span class="fa fa-eye c-primary">&nbsp;&nbsp;<b class="num text-muted">{% get_hit_count for post %}</b></span>
+                    </div>
+                    <div class="col-4">
+                        <span class="fa fa-comments-o c-primary">&nbsp;&nbsp;<b class="num text-muted">{{ post.comment_set.count }}</b></span>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+            <a href="{% url 'blog:articles' %}" class="mylink pull-right"><i>More.....</i></a>
+        </div>
+    
+    </div>
+</div>
+{% endif %}
+<div class="row">
+    <div class="col-12 col-md-8 offset-md-2">
+        <h5>Author:</h5>
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row no-gutters">
+                <div class="col-md-4">
+                    <img src="{% static 'techpal/img/author.jpg' %}" class="card-img" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">Isaiah Ozadhe</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content
+                             lead-in to additional content. This content
+                            is a little bit longer.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
